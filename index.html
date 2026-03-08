@@ -3,423 +3,2403 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atley Brown | Silly Goose</title>
+  <title>Rick Brown — Builder, Rider, Competitor</title>
+  <meta name="description" content="The personal website of Rick Brown — a man who biked across America at 18, builds roads for a living, and dominates the pickleball court.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* ===== RESET & CUSTOM PROPERTIES ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --orange: #ff8c42;
-      --orange-light: #ffb347;
-      --yellow: #ffe066;
-      --yellow-light: #fff3b0;
-      --sky: #87ceeb;
-      --sky-light: #d6f0ff;
-      --pink: #ff6b9d;
-      --dark: #2b2b2b;
-      --white: #fffef8;
-      --gray: #666;
+      --navy: #0b1426;
+      --navy-light: #111d35;
+      --navy-mid: #162544;
+      --slate: #1e3a5f;
+      --blue: #2d7dd2;
+      --blue-light: #5fa8d3;
+      --accent: #f0a500;
+      --accent-light: #ffd166;
+      --accent-glow: rgba(240, 165, 0, 0.15);
+      --green: #06d6a0;
+      --red: #ef476f;
+      --white: #f8f9fa;
+      --off-white: #e0e4ea;
+      --gray: #7b8ba4;
+      --gray-light: #a0aec0;
+      --text: #c9d1d9;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif: 'Playfair Display', Georgia, serif;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--navy);
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, var(--accent), var(--blue));
+      border-radius: 4px;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--dark);
-      background: var(--white);
-      line-height: 1.6;
+      font-family: var(--font);
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.7;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ---- HERO ---- */
+    ::selection {
+      background: var(--accent);
+      color: var(--navy);
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== SCROLL PROGRESS BAR ===== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--blue), var(--green));
+      z-index: 10000;
+      transition: width 0.1s linear;
+      width: 0%;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.15rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all var(--transition);
+    }
+
+    nav.scrolled {
+      background: rgba(11, 20, 38, 0.9);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 0.85rem 2.5rem;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.15rem;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      position: relative;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+      z-index: 1001;
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+
+    .mobile-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .mobile-toggle.open span:nth-child(2) { opacity: 0; }
+    .mobile-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ===== HERO ===== */
     .hero {
-      background: linear-gradient(135deg, var(--orange) 0%, var(--yellow) 50%, var(--sky) 100%);
-      color: var(--dark);
-      text-align: center;
-      padding: 5rem 1.5rem 4rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
       overflow: hidden;
+      padding: 2rem;
     }
 
-    .hero::before {
-      content: '';
+    .hero-bg {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 15% 85%, rgba(255,107,157,0.2) 0%, transparent 40%),
-        radial-gradient(circle at 85% 15%, rgba(255,255,255,0.3) 0%, transparent 40%);
+        radial-gradient(ellipse at 20% 40%, rgba(45, 125, 210, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 20%, rgba(240, 165, 0, 0.08) 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 90%, rgba(6, 214, 160, 0.06) 0%, transparent 45%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    }
+
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: float-particle linear infinite;
+    }
+
+    @keyframes float-particle {
+      0% { opacity: 0; transform: translateY(100vh) scale(0); }
+      15% { opacity: 0.5; }
+      85% { opacity: 0.5; }
+      100% { opacity: 0; transform: translateY(-10vh) scale(1); }
     }
 
     .hero-content {
       position: relative;
-      max-width: 700px;
-      margin: 0 auto;
+      text-align: center;
+      max-width: 900px;
     }
 
-    .hero-goose {
-      font-size: 6rem;
-      margin-bottom: 0.5rem;
-      animation: wobble 2s ease-in-out infinite;
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      padding: 0.55rem 1.5rem;
+      border: 1px solid rgba(240, 165, 0, 0.25);
+      border-radius: 50px;
+      background: rgba(240, 165, 0, 0.06);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.3s ease forwards;
     }
 
-    @keyframes wobble {
-      0%, 100% { transform: rotate(-5deg); }
-      50% { transform: rotate(5deg); }
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
     }
 
     .hero h1 {
-      font-size: 3.2rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 0.25rem;
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s 0.5s ease forwards;
     }
 
-    .hero .tagline {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--dark);
-      opacity: 0.85;
-    }
-
-    .hero .subtitle {
-      font-size: 1rem;
-      margin-top: 0.5rem;
-      opacity: 0.7;
+    .hero h1 em {
+      color: var(--accent);
       font-style: italic;
+      position: relative;
     }
 
-    /* ---- NAV PILLS ---- */
-    .nav-pills {
+    .hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: rgba(240, 165, 0, 0.2);
+      border-radius: 3px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--gray-light);
+      max-width: 620px;
+      margin: 0 auto 3rem;
+      font-weight: 400;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.7s ease forwards;
+    }
+
+    .hero-actions {
       display: flex;
+      gap: 1rem;
       justify-content: center;
-      gap: 0.75rem;
-      margin-top: 2rem;
       flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.9s ease forwards;
     }
 
-    .nav-pills a {
-      background: rgba(255,255,255,0.4);
-      color: var(--dark);
-      padding: 0.5rem 1.25rem;
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--accent);
+      color: var(--navy);
+      padding: 0.95rem 2.25rem;
       border-radius: 50px;
-      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      transition: all var(--transition);
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(240, 165, 0, 0.35);
+    }
+
+    .btn-primary svg {
+      width: 16px;
+      height: 16px;
+      transition: transform var(--transition);
+    }
+
+    .btn-primary:hover svg { transform: translateX(3px); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: var(--white);
+      padding: 0.95rem 2.25rem;
+      border-radius: 50px;
       font-weight: 700;
-      font-size: 0.95rem;
-      transition: background 0.2s, transform 0.2s;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all var(--transition);
+      cursor: pointer;
+      font-family: var(--font);
     }
 
-    .nav-pills a:hover {
-      background: rgba(255,255,255,0.7);
-      transform: scale(1.05);
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(240, 165, 0, 0.05);
     }
 
-    /* ---- SECTIONS ---- */
-    section {
-      max-width: 900px;
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.2s ease forwards;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      color: var(--gray);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .scroll-mouse {
+      width: 22px;
+      height: 34px;
+      border: 2px solid var(--gray);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .scroll-mouse::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 3px;
+      animation: scroll-wheel 2s ease infinite;
+    }
+
+    @keyframes scroll-wheel {
+      0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== SECTIONS COMMON ===== */
+    .section {
+      padding: 8rem 2rem;
+      position: relative;
+    }
+
+    .section-inner {
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 4rem 1.5rem;
     }
 
-    section h2 {
-      font-size: 2rem;
+    .section-label {
+      font-size: 0.7rem;
       font-weight: 700;
-      margin-bottom: 1.5rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
-    section p {
-      color: var(--gray);
+    .section-label::before {
+      content: '';
+      width: 30px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-desc {
       font-size: 1.05rem;
-      max-width: 680px;
+      color: var(--gray-light);
+      max-width: 580px;
+      margin-bottom: 2rem;
+      line-height: 1.85;
     }
 
-    .divider {
-      border: none;
-      height: 3px;
-      max-width: 900px;
+    .section-divider {
+      max-width: 1140px;
       margin: 0 auto;
-      background: linear-gradient(to right, var(--yellow-light), var(--orange-light), var(--pink), var(--sky), var(--yellow-light));
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent);
     }
 
-    /* ---- CARDS ---- */
-    .card-grid {
+    /* ===== ABOUT ===== */
+    .about-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-photo-wrapper {
+      position: relative;
+    }
+
+    .about-photo-wrapper img {
+      border-radius: var(--radius);
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-photo-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      bottom: 8px;
+      left: 8px;
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    .about-photo-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--accent-glow), transparent);
+      border-radius: 50%;
+      z-index: 0;
+      filter: blur(40px);
+    }
+
+    .about-text p { margin-bottom: 1.25rem; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+
+    .stat:hover {
+      border-color: rgba(240, 165, 0, 0.2);
+      background: rgba(240, 165, 0, 0.03);
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+    }
+
+    /* ===== PASSIONS ===== */
+    .passions-section { background: var(--navy-light); }
+
+    .passions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
+    }
+
+    .passion-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all var(--transition);
+      cursor: default;
+    }
+
+    .passion-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(240, 165, 0, 0.25);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .passion-card.wide {
+      grid-column: span 2;
+    }
+
+    .passion-card-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 280px;
+    }
+
+    .passion-card.wide .passion-card-inner {
+      min-height: 240px;
+    }
+
+    .passion-card-img {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .passion-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .passion-card:hover .passion-card-img img {
+      transform: scale(1.06);
+    }
+
+    .passion-card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11, 20, 38, 0.3), transparent);
+    }
+
+    .passion-card-body {
+      padding: 2rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .passion-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(240, 165, 0, 0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .passion-card h3 {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.65rem;
+    }
+
+    .passion-card p {
+      font-size: 0.9rem;
+      color: var(--gray-light);
+      line-height: 1.7;
+    }
+
+    /* ===== CROSS-COUNTRY MAP ===== */
+    .map-section {
+      background: var(--navy);
+      overflow: hidden;
+    }
+
+    .map-hero-text {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+
+    .map-hero-text .section-label { justify-content: center; }
+    .map-hero-text .section-desc { margin: 0 auto 2rem; }
+
+    .map-experience {
+      background: rgba(0,0,0,0.15);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .map-header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .map-header-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    .map-header-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .map-header-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      background: rgba(240, 165, 0, 0.1);
+      border: 1px solid rgba(240, 165, 0, 0.2);
+      border-radius: 50px;
+    }
+
+    .map-body {
+      padding: 2rem;
+      position: relative;
+    }
+
+    .map-container svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .us-outline {
+      fill: rgba(255,255,255,0.03);
+      stroke: rgba(255,255,255,0.1);
+      stroke-width: 1.2;
+    }
+
+    .state-line {
+      stroke: rgba(255,255,255,0.03);
+      stroke-width: 0.5;
+    }
+
+    .map-route {
+      stroke: var(--accent);
+      stroke-width: 3.5;
+      fill: none;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 8px rgba(240, 165, 0, 0.4));
+    }
+
+    .map-route.animate {
+      animation: draw-route 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes draw-route {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .map-route-glow {
+      stroke: rgba(240, 165, 0, 0.15);
+      stroke-width: 12;
+      fill: none;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      stroke-linecap: round;
+    }
+
+    .map-route-glow.animate {
+      animation: draw-route 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .map-dot {
+      fill: var(--accent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .map-dot.show { opacity: 1; }
+
+    .map-dot-ring {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2;
+      opacity: 0;
+    }
+
+    .map-dot-ring.show {
+      animation: ring-pulse 2s ease-out infinite;
+    }
+
+    @keyframes ring-pulse {
+      0% { opacity: 0.6; r: 6; }
+      100% { opacity: 0; r: 22; }
+    }
+
+    .map-city-label {
+      font-family: var(--font);
+      font-size: 9px;
+      font-weight: 700;
+      fill: var(--white);
+      opacity: 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: opacity 0.5s ease;
+    }
+
+    .map-city-label.show { opacity: 1; }
+
+    .map-city-sub {
+      font-family: var(--font);
+      font-size: 7px;
+      font-weight: 500;
+      fill: var(--gray);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .map-city-sub.show { opacity: 1; }
+
+    /* Animated cyclist on the map */
+    .map-cyclist {
+      opacity: 0;
+      transition: opacity 0.3s;
+      filter: drop-shadow(0 0 6px rgba(240, 165, 0, 0.6));
+    }
+
+    .map-cyclist.show { opacity: 1; }
+
+    .map-footer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .map-stat {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-right: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .map-stat:last-child { border-right: none; }
+
+    .map-stat-value {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .map-stat-label {
+      font-size: 0.65rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
+
+    .map-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
       margin-top: 1.5rem;
     }
 
-    .card {
-      background: #fffdf5;
-      border: 2px solid #ffe8c8;
-      border-radius: 16px;
-      padding: 1.75rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(240, 165, 0, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(240, 165, 0, 0.2);
+      padding: 0.65rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: var(--font);
     }
 
-    .card:hover {
-      transform: translateY(-4px) rotate(1deg);
-      box-shadow: 0 8px 24px rgba(255,140,66,0.15);
+    .map-btn:hover {
+      background: rgba(240, 165, 0, 0.2);
+      transform: translateY(-1px);
     }
 
-    .card .icon {
-      font-size: 2.2rem;
-      margin-bottom: 0.75rem;
+    .map-btn svg {
+      width: 14px;
+      height: 14px;
     }
 
-    .card h3 {
-      font-size: 1.15rem;
+    .map-photo-row {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 2rem;
+      margin-top: 3rem;
+      align-items: center;
+    }
+
+    .map-vintage-photo {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .map-vintage-photo img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .map-vintage-photo .photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 1.5rem 1.5rem;
+      background: linear-gradient(to top, rgba(11, 20, 38, 0.95), transparent);
+    }
+
+    .photo-overlay .year-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(240, 165, 0, 0.15);
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
       margin-bottom: 0.5rem;
     }
 
-    .card p {
-      font-size: 0.95rem;
-      color: var(--gray);
+    .photo-overlay p {
+      font-size: 0.85rem;
+      color: var(--off-white);
+      font-weight: 500;
+      line-height: 1.5;
     }
 
-    /* ---- HONK BANNER ---- */
-    .honk-banner {
-      background: linear-gradient(135deg, var(--yellow), var(--orange-light));
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: var(--dark);
+    .map-story {
+      padding: 1rem 0;
     }
 
-    .honk-banner span {
-      display: inline-block;
-      animation: honkBounce 0.6s ease-in-out infinite alternate;
-    }
-
-    .honk-banner span:nth-child(2) { animation-delay: 0.1s; }
-    .honk-banner span:nth-child(3) { animation-delay: 0.2s; }
-    .honk-banner span:nth-child(4) { animation-delay: 0.3s; }
-    .honk-banner span:nth-child(5) { animation-delay: 0.4s; }
-
-    @keyframes honkBounce {
-      to { transform: translateY(-6px); }
-    }
-
-    /* ---- QUOTE ---- */
-    .quote-block {
-      background: linear-gradient(135deg, var(--sky-light), var(--yellow-light));
-      border-left: 4px solid var(--orange);
-      border-radius: 0 16px 16px 0;
-      padding: 2rem;
-      margin-top: 1.5rem;
+    .map-story blockquote {
+      font-family: var(--serif);
+      font-size: 1.4rem;
       font-style: italic;
-      font-size: 1.15rem;
-      color: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--accent);
     }
 
-    /* ---- GOOSE FACTS ---- */
-    .fact-list {
-      list-style: none;
-      margin-top: 1.5rem;
+    .map-story p {
+      font-size: 0.95rem;
+      color: var(--gray-light);
+      line-height: 1.8;
     }
 
-    .fact-list li {
-      padding: 0.75rem 0;
-      border-bottom: 1px dashed #ffe0b2;
-      font-size: 1.05rem;
+    /* ===== PICKLEBALL SECTION ===== */
+    .pickle-section {
+      background: var(--navy-light);
+    }
+
+    .pickle-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .pickle-game-wrapper {
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .pickle-game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .pickle-game-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .pickle-game-title .live-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    .pickle-scores {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .pickle-score-item {
+      text-align: center;
+    }
+
+    .pickle-score-item .name {
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .pickle-score-item .points {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pickle-score-item .points.opponent { color: var(--red); }
+
+    .pickle-vs {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 1px;
+    }
+
+    #pickle-canvas {
+      display: block;
+      width: 100%;
+      cursor: none;
+    }
+
+    .pickle-game-footer {
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .pickle-game-footer .hint {
+      font-size: 0.72rem;
       color: var(--gray);
     }
 
-    .fact-list li::before {
-      content: '\1F4A5 ';
+    .pickle-game-footer .high-score {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent);
     }
 
-    /* ---- GOOSE METER ---- */
-    .meter-section {
-      text-align: center;
-      margin-top: 1.5rem;
+    .pickle-info .pickle-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
     }
 
-    .meter-bar {
-      background: #f0f0f0;
-      border-radius: 50px;
-      height: 2rem;
-      max-width: 500px;
-      margin: 1rem auto;
-      overflow: hidden;
-      border: 2px solid #ffe0b2;
+    .pickle-photos img {
+      border-radius: var(--radius-sm);
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform var(--transition);
     }
 
-    .meter-fill {
-      background: linear-gradient(to right, var(--yellow), var(--orange), var(--pink));
-      height: 100%;
+    .pickle-photos img:hover { transform: scale(1.03); }
+
+    /* ===== CAREER ===== */
+    .career-section { background: var(--navy); }
+
+    .career-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .career-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .career-photos img {
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      aspect-ratio: 1;
       width: 100%;
-      border-radius: 50px;
-      animation: fillUp 2s ease-out;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all var(--transition);
     }
 
-    @keyframes fillUp {
-      from { width: 0%; }
-      to { width: 100%; }
+    .career-photos img:first-child {
+      grid-row: span 2;
+      aspect-ratio: auto;
+      height: 100%;
     }
 
-    .meter-label {
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: var(--orange);
-      margin-top: 0.5rem;
+    .career-photos img:hover {
+      border-color: rgba(240, 165, 0, 0.2);
+      transform: scale(1.02);
     }
 
-    /* ---- FOOTER ---- */
-    footer {
-      background: var(--dark);
-      color: rgba(255,255,255,0.6);
+    .career-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .career-highlight {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      padding: 1.25rem 1.5rem;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+
+    .career-highlight:hover {
+      border-color: rgba(240, 165, 0, 0.2);
+      background: rgba(240, 165, 0, 0.03);
+      transform: translateX(4px);
+    }
+
+    .career-highlight-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-glow);
+      border: 1px solid rgba(240, 165, 0, 0.15);
+      border-radius: var(--radius-sm);
+      font-size: 1.25rem;
+    }
+
+    .career-highlight h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+
+    .career-highlight p {
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+    }
+
+    /* ===== FAMILY ===== */
+    .family-section {
+      background: var(--navy-light);
       text-align: center;
-      padding: 2rem 1.5rem;
-      font-size: 0.9rem;
+      padding: 7rem 2rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    footer span {
-      color: var(--orange-light);
+    .family-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(240, 165, 0, 0.06) 0%, transparent 60%);
     }
 
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2.4rem;
+    .family-inner {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .family-inner .section-label { justify-content: center; }
+    .family-inner .section-desc {
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+
+    .family-photo-wrapper {
+      max-width: 500px;
+      margin: 0 auto 3rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .family-photo-wrapper img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+
+    .family-photo-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(17, 29, 53, 0.4), transparent 40%);
+    }
+
+    .family-icons {
+      display: flex;
+      justify-content: center;
+      gap: 3.5rem;
+    }
+
+    .family-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: default;
+    }
+
+    .family-icon-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(240, 165, 0, 0.08);
+      border: 2px solid rgba(240, 165, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      transition: all var(--transition);
+    }
+
+    .family-icon:hover .family-icon-circle {
+      transform: scale(1.12) rotate(5deg);
+      border-color: var(--accent);
+      background: rgba(240, 165, 0, 0.12);
+      box-shadow: 0 8px 30px rgba(240, 165, 0, 0.2);
+    }
+
+    .family-icon-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      background: var(--navy);
+    }
+
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-divider {
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 0 auto 2rem;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Stagger children */
+    .stagger > * { transition-delay: calc(var(--i, 0) * 0.1s); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .about-grid,
+      .pickle-layout,
+      .career-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
       }
 
-      .hero-goose {
-        font-size: 4rem;
+      .map-photo-row {
+        grid-template-columns: 1fr;
       }
 
-      section {
-        padding: 3rem 1.25rem;
+      .passions-grid {
+        grid-template-columns: 1fr;
       }
 
-      .honk-banner {
-        font-size: 1.2rem;
-        letter-spacing: 4px;
+      .passion-card.wide {
+        grid-column: span 1;
       }
+
+      .section { padding: 5rem 1.5rem; }
+
+      .map-footer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .map-stat:nth-child(2) { border-right: none; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      nav .nav-links { display: none; }
+      .mobile-toggle { display: flex; }
+
+      nav .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(11, 20, 38, 0.97);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+
+      .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
+
+      .about-grid { gap: 2rem; }
+
+      .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+      }
+
+      .passion-card-inner {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .passion-card-img {
+        aspect-ratio: 16/9;
+      }
+
+      .passion-card.wide .passion-card-inner {
+        min-height: auto;
+      }
+
+      .pickle-layout { gap: 2.5rem; }
+
+      .career-photos {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .career-photos img:first-child {
+        grid-row: span 1;
+        aspect-ratio: 1;
+        height: auto;
+      }
+
+      .family-icons { gap: 2rem; }
+
+      .map-footer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .map-stat:nth-child(2) { border-right: none; }
+
+      .pickle-scores { gap: 0.75rem; }
+
+      .map-story blockquote { font-size: 1.15rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; align-items: center; }
+      .about-stats { grid-template-columns: 1fr 1fr 1fr; }
+      .stat-number { font-size: 1.5rem; }
+      .family-icons { gap: 1.5rem; flex-wrap: wrap; }
+      .pickle-photos { grid-template-columns: 1fr !important; }
+      .career-photos { grid-template-columns: 1fr; }
+      .career-photos img:first-child { grid-row: span 1; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="hero-content">
-      <div class="hero-goose">&#129414;</div>
-      <h1>Atley Brown</h1>
-      <p class="tagline">Certified Silly Goose</p>
-      <p class="subtitle">Professional honker. Full-time goofball. Zero regrets.</p>
-      <nav class="nav-pills">
-        <a href="#silly">Silly Credentials</a>
-        <a href="#goose">Goose Mode</a>
-        <a href="#facts">Fun Facts</a>
-        <a href="#about">About</a>
-      </nav>
-    </div>
-  </header>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- Honk Banner -->
-  <div class="honk-banner">
-    <span>H</span><span>O</span><span>N</span><span>K</span><span>!</span>
-  </div>
-
-  <!-- Silly Credentials -->
-  <section id="silly">
-    <h2>&#129315; Silly Credentials</h2>
-    <p>Atley didn't just wake up one day as a silly goose. It took years of dedicated goofiness, world-class shenanigans, and an unwavering commitment to being absolutely ridiculous.</p>
-    <div class="card-grid">
-      <div class="card">
-        <div class="icon">&#129322;</div>
-        <h3>Class Clown Energy</h3>
-        <p>Can make anyone laugh at any time. It's basically a superpower at this point.</p>
-      </div>
-      <div class="card">
-        <div class="icon">&#128566;</div>
-        <h3>Master of Funny Faces</h3>
-        <p>Has an unlimited supply of ridiculous expressions ready to deploy at a moment's notice.</p>
-      </div>
-      <div class="card">
-        <div class="icon">&#127912;</div>
-        <h3>Party Starter</h3>
-        <p>If there's fun to be had, Atley is already there causing a scene (the good kind).</p>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <!-- Goose Mode -->
-  <section id="goose">
-    <h2>&#129414; Goose Mode</h2>
-    <p>When goose mode is activated, there's no stopping the silliness. Chaos (the fun kind) is guaranteed. Proceed with caution and snacks.</p>
-    <div class="card-grid">
-      <div class="card">
-        <div class="icon">&#128168;</div>
-        <h3>Chaotic Good</h3>
-        <p>Will absolutely steal your sandwich but somehow make you laugh about it.</p>
-      </div>
-      <div class="card">
-        <div class="icon">&#129438;</div>
-        <h3>Waddle Game: Strong</h3>
-        <p>Struts around with the confidence of a goose who owns the entire pond.</p>
-      </div>
-      <div class="card">
-        <div class="icon">&#128227;</div>
-        <h3>Volume: Maximum</h3>
-        <p>Indoor voice? Never heard of it. Every room is an outdoor room if you're loud enough.</p>
-      </div>
-    </div>
-
-    <div class="meter-section">
-      <p><strong>Current Silly Goose Level:</strong></p>
-      <div class="meter-bar">
-        <div class="meter-fill"></div>
-      </div>
-      <div class="meter-label">100% MAXIMUM SILLY</div>
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <!-- Fun Facts -->
-  <section id="facts">
-    <h2>&#128173; Fun Facts About Atley</h2>
-    <p>Important things the world needs to know:</p>
-    <ul class="fact-list">
-      <li>Has never once been serious for more than 30 seconds</li>
-      <li>Considered a national treasure by at least one household</li>
-      <li>Can turn any situation into a comedy show</li>
-      <li>Runs on snacks, giggles, and pure unfiltered chaos</li>
-      <li>Once made a grown adult laugh so hard they cried</li>
-      <li>Official goose-to-human silliness ratio: off the charts</li>
+  <!-- ===== NAVIGATION ===== -->
+  <nav id="navbar">
+    <div class="logo">Rick<span>.</span>Brown</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#passions">Passions</a></li>
+      <li><a href="#the-ride">The Ride</a></li>
+      <li><a href="#pickleball">Pickleball</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#family">Family</a></li>
     </ul>
-  </section>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-  <hr class="divider">
-
-  <!-- About -->
-  <section id="about">
-    <h2>&#128038; About Atley</h2>
-    <p>Atley Brown is the silliest goose you'll ever meet. Armed with an infectious laugh, an unstoppable sense of humor, and absolutely zero chill, Atley brings joy and chaos wherever they go. The world is a better (and funnier) place with this goose in it.</p>
-    <div class="quote-block">
-      "Be the silly goose you wish to see in the world." &mdash; Atley, probably
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Builder &middot; Rider &middot; Competitor
+      </div>
+      <h1>Rick <em>Brown</em></h1>
+      <p class="hero-subtitle">
+        He rode his bike across America at 18. He builds the roads we drive on.
+        And he never backs down from a pickleball match.
+      </p>
+      <div class="hero-actions">
+        <a href="#about" class="btn-primary">
+          Get to know Rick
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="#the-ride" class="btn-outline">
+          See the journey
+        </a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-mouse"></div>
     </div>
   </section>
 
-  <!-- Honk Banner -->
-  <div class="honk-banner">
-    <span>H</span><span>O</span><span>N</span><span>K</span><span>!</span>
-  </div>
+  <!-- ===== ABOUT ===== -->
+  <section class="section" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-photo-wrapper reveal-left">
+          <img src="photos/Bikeandpickleballnow/IMG_3037.jpeg" alt="Rick Brown cycling at the Biltmore Estate" loading="lazy">
+        </div>
+        <div class="about-text reveal-right">
+          <div class="section-label">About</div>
+          <h2 class="section-title">Meet Rick Brown</h2>
+          <p class="section-desc">
+            Rick is the kind of person who doesn't just talk about adventure — he lives it. At 18 years old, he loaded up a touring bike and pedaled across the entire United States. That grit never faded.
+          </p>
+          <p class="section-desc">
+            Today, he's still riding, still competing on the pickleball court, and still building — literally — the roads that connect communities across the country. When he's not closing deals on heavy equipment or chasing down a winning shot, you'll find him out on the water at Falls Lake or spending time with the people who matter most — his three kids.
+          </p>
+          <div class="about-stats stagger">
+            <div class="stat" style="--i:0">
+              <div class="stat-number" data-count="3000" data-suffix="+">0</div>
+              <div class="stat-label">Miles at 18</div>
+            </div>
+            <div class="stat" style="--i:1">
+              <div class="stat-number" data-count="3" data-suffix="">0</div>
+              <div class="stat-label">Proud Kids</div>
+            </div>
+            <div class="stat" style="--i:2">
+              <div class="stat-number" data-count="30" data-suffix="+">0</div>
+              <div class="stat-label">Years in Sales</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Footer -->
+  <div class="section-divider"></div>
+
+  <!-- ===== PASSIONS ===== -->
+  <section class="section passions-section" id="passions">
+    <div class="section-inner">
+      <div class="section-label reveal">What Drives Him</div>
+      <h2 class="section-title reveal">Passions &amp; Pursuits</h2>
+      <p class="section-desc reveal">From the open road to the pickleball court to the lake — Rick lives life at full throttle.</p>
+      <div class="passions-grid">
+        <div class="passion-card reveal-scale" style="transition-delay: 0.1s">
+          <div class="passion-card-inner">
+            <div class="passion-card-img">
+              <img src="photos/Bikeandpickleballnow/IMG_7149.jpeg" alt="Rick riding his bike with full gear" loading="lazy">
+            </div>
+            <div class="passion-card-body">
+              <div class="passion-card-icon">&#128690;</div>
+              <h3>Cycling</h3>
+              <p>A lifelong cyclist who rode across the entire country as a teenager — and never stopped pedaling. Whether it's a trail ride or a full-gear adventure, two wheels are always calling.</p>
+            </div>
+          </div>
+        </div>
+        <div class="passion-card reveal-scale" style="transition-delay: 0.2s">
+          <div class="passion-card-inner">
+            <div class="passion-card-img">
+              <img src="photos/Bikeandpickleballnow/IMG_3463.jpeg" alt="Rick holding his Selkirk pickleball paddle at the courts" loading="lazy">
+            </div>
+            <div class="passion-card-body">
+              <div class="passion-card-icon">&#127955;</div>
+              <h3>Pickleball</h3>
+              <p>Armed with his Selkirk LUXX paddle and an unshakeable competitive spirit, Rick brings everything he's got to every single point. Dinks, drives, and drop shots — he's got them all.</p>
+            </div>
+          </div>
+        </div>
+        <div class="passion-card wide reveal-scale" style="transition-delay: 0.3s">
+          <div class="passion-card-inner">
+            <div class="passion-card-img">
+              <img src="photos/Work/IMG_3519.jpeg" alt="Rick with a Hamm roller on a mountain road" loading="lazy">
+            </div>
+            <div class="passion-card-body">
+              <div class="passion-card-icon">&#127959;</div>
+              <h3>Building Roads</h3>
+              <p>Selling heavy road-building equipment isn't just a career — it's a front-row seat to watching communities grow and connect. From mountain highways to neighborhood streets, every smooth stretch of asphalt represents Rick's work.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== CROSS-COUNTRY RIDE ===== -->
+  <section class="section map-section" id="the-ride">
+    <div class="section-inner">
+      <div class="map-hero-text">
+        <div class="section-label reveal">The Journey of a Lifetime</div>
+        <h2 class="section-title reveal">Coast to Coast<br>at Age 18</h2>
+        <p class="section-desc reveal">
+          While most teenagers were thinking about prom, Rick loaded up his bike and set out to ride across the entire United States. Watch the journey unfold.
+        </p>
+      </div>
+
+      <div class="map-experience reveal-scale">
+        <div class="map-header">
+          <div class="map-header-left">
+            <div class="map-header-dot"></div>
+            <div class="map-header-title">Cross-Country Route Tracker</div>
+          </div>
+          <div class="map-header-badge">Interactive</div>
+        </div>
+        <div class="map-body">
+          <svg viewBox="0 0 960 600" id="usMap">
+            <!-- US Outline (simplified) -->
+            <path class="us-outline" d="M 150 490 L 160 450 L 170 410 L 200 370 L 210 330 L 230 310 L 250 290 L 240 250 L 230 220 L 240 190 L 250 170 L 270 160 L 290 150 L 310 140 L 340 130 L 370 125 L 400 120 L 430 115 L 460 120 L 490 130 L 510 125 L 530 130 L 550 140 L 570 135 L 590 130 L 620 120 L 650 115 L 680 110 L 710 115 L 740 120 L 760 130 L 780 140 L 790 160 L 800 180 L 810 200 L 815 225 L 830 240 L 845 245 L 855 230 L 862 220 L 870 225 L 862 240 L 855 260 L 845 270 L 855 280 L 860 300 L 855 315 L 845 330 L 838 345 L 830 360 L 820 370 L 810 385 L 790 390 L 780 400 L 760 410 L 740 415 L 720 420 L 700 425 L 680 430 L 660 435 L 640 440 L 620 445 L 600 450 L 580 460 L 560 465 L 530 460 L 500 455 L 470 460 L 440 465 L 410 480 L 390 485 L 370 490 L 340 495 L 310 498 L 280 500 L 250 502 L 220 505 L 190 500 L 170 495 Z"/>
+
+            <!-- State-ish internal lines -->
+            <line class="state-line" x1="350" y1="125" x2="350" y2="495"/>
+            <line class="state-line" x1="500" y1="125" x2="480" y2="460"/>
+            <line class="state-line" x1="650" y1="115" x2="650" y2="440"/>
+            <line class="state-line" x1="230" y1="300" x2="850" y2="300"/>
+            <line class="state-line" x1="240" y1="200" x2="820" y2="200"/>
+            <line class="state-line" x1="300" y1="400" x2="780" y2="400"/>
+
+            <!-- Route glow layer -->
+            <path class="map-route-glow" id="mapRouteGlow" d="M 170 370 C 200 355, 230 335, 270 310 C 310 285, 340 270, 380 255 C 420 240, 460 235, 510 240 C 550 245, 580 250, 620 240 C 660 230, 700 215, 740 200 C 770 190, 800 185, 825 200 C 845 210, 855 225, 850 245"/>
+
+            <!-- Route line -->
+            <path class="map-route" id="mapRoute" d="M 170 370 C 200 355, 230 335, 270 310 C 310 285, 340 270, 380 255 C 420 240, 460 235, 510 240 C 550 245, 580 250, 620 240 C 660 230, 700 215, 740 200 C 770 190, 800 185, 825 200 C 845 210, 855 225, 850 245"/>
+
+            <!-- Start: West Coast -->
+            <circle class="map-dot" id="dotStart" cx="170" cy="370" r="7"/>
+            <circle class="map-dot-ring" id="ringStart" cx="170" cy="370" r="7"/>
+            <text class="map-city-label" id="lblStart" x="128" y="362">Oregon</text>
+            <text class="map-city-sub" id="subStart" x="128" y="374">Pacific Coast</text>
+
+            <!-- Stop 1: Rockies -->
+            <circle class="map-dot" id="dot1" cx="310" cy="285" r="5"/>
+            <text class="map-city-label" id="lbl1" x="280" y="275">Rockies</text>
+            <text class="map-city-sub" id="sub1" x="280" y="287">Mountain Pass</text>
+
+            <!-- Stop 2: Plains -->
+            <circle class="map-dot" id="dot2" cx="510" cy="240" r="5"/>
+            <text class="map-city-label" id="lbl2" x="482" y="228">Great Plains</text>
+            <text class="map-city-sub" id="sub2" x="482" y="240">Kansas</text>
+
+            <!-- Stop 3: Midwest -->
+            <circle class="map-dot" id="dot3" cx="680" cy="230" r="5"/>
+            <text class="map-city-label" id="lbl3" x="655" y="218">Midwest</text>
+            <text class="map-city-sub" id="sub3" x="655" y="230">Indiana</text>
+
+            <!-- End: East Coast -->
+            <circle class="map-dot" id="dotEnd" cx="850" cy="245" r="7"/>
+            <circle class="map-dot-ring" id="ringEnd" cx="850" cy="245" r="7"/>
+            <text class="map-city-label" id="lblEnd" x="820" y="270">Virginia</text>
+            <text class="map-city-sub" id="subEnd" x="820" y="282">Atlantic Coast</text>
+
+            <!-- Animated cyclist -->
+            <g class="map-cyclist" id="mapCyclist">
+              <circle cx="0" cy="0" r="10" fill="rgba(240,165,0,0.2)"/>
+              <text x="-7" y="6" font-size="14">&#128692;</text>
+            </g>
+          </svg>
+        </div>
+        <div class="map-footer">
+          <div class="map-stat">
+            <div class="map-stat-value" id="mileCounter">0</div>
+            <div class="map-stat-label">Miles</div>
+          </div>
+          <div class="map-stat">
+            <div class="map-stat-value" id="dayCounter">0</div>
+            <div class="map-stat-label">Days</div>
+          </div>
+          <div class="map-stat">
+            <div class="map-stat-value" id="stateCounter">0</div>
+            <div class="map-stat-label">States</div>
+          </div>
+          <div class="map-stat">
+            <div class="map-stat-value">18</div>
+            <div class="map-stat-label">Years Old</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-controls">
+        <button class="map-btn" id="replayBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          Replay Journey
+        </button>
+      </div>
+
+      <div class="map-photo-row">
+        <div class="map-vintage-photo reveal-left">
+          <img src="photos/Bikerideat18/IMG_7130.jpeg" alt="18-year-old Rick Brown with his touring bike on the beach after riding across America" loading="lazy">
+          <div class="photo-overlay">
+            <div class="year-badge">Circa 1980s</div>
+            <p>Rick arriving at the coast — over 3,000 miles on two wheels</p>
+          </div>
+        </div>
+        <div class="map-story reveal-right">
+          <blockquote>
+            "I loaded up everything I owned onto that bike and just started pedaling. No GPS, no cell phone — just a map, a dream, and the open road."
+          </blockquote>
+          <p>
+            It wasn't just a ride — it was the adventure that shaped who Rick would become. Crossing mountain passes, sleeping under the stars, rolling through small towns where strangers became friends. The grit, determination, and love of the open road that started on that trip have defined his life ever since.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== PICKLEBALL ===== -->
+  <section class="section pickle-section" id="pickleball">
+    <div class="section-inner">
+      <div class="pickle-layout">
+        <div class="reveal-left">
+          <div class="pickle-game-wrapper">
+            <div class="pickle-game-header">
+              <div class="pickle-game-title">
+                <span class="live-dot"></span>
+                Pickleball Rally
+              </div>
+              <div class="pickle-scores">
+                <div class="pickle-score-item">
+                  <div class="name">Rick</div>
+                  <div class="points" id="pickleScore">0</div>
+                </div>
+                <div class="pickle-vs">VS</div>
+                <div class="pickle-score-item">
+                  <div class="name">CPU</div>
+                  <div class="points opponent" id="cpuScore">0</div>
+                </div>
+              </div>
+            </div>
+            <canvas id="pickle-canvas" width="500" height="400"></canvas>
+            <div class="pickle-game-footer">
+              <span class="hint">Move mouse or touch to play</span>
+              <span class="high-score">Best: <span id="highScore">0</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="pickle-info reveal-right">
+          <div class="section-label">On the Court</div>
+          <h2 class="section-title">Pickleball<br>Fanatic</h2>
+          <p class="section-desc">
+            Rick doesn't just play pickleball — he competes. Whether it's a casual game with friends or a heated match, he brings everything he's got to every single point.
+          </p>
+          <p class="section-desc">
+            Armed with his trusty Selkirk LUXX paddle and an unshakeable competitive drive, Rick is the kind of player who makes every rally count. You'll find him riding his bike to the courts for some serious doubles action.
+          </p>
+          <div class="pickle-photos">
+            <img src="photos/Bikeandpickleballnow/IMG_3463.jpeg" alt="Rick with his Selkirk LUXX paddle at the pickleball courts" loading="lazy">
+            <img src="photos/Bikeandpickleballnow/IMG_4056.jpeg" alt="Rick at the pickleball courts with his bike" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== CAREER ===== -->
+  <section class="section career-section" id="career">
+    <div class="section-inner">
+      <div class="career-layout">
+        <div class="reveal-left">
+          <div class="section-label">The Day Job</div>
+          <h2 class="section-title">Building America's<br>Roads</h2>
+          <p class="section-desc">
+            Rick has spent his career in sales, specializing in heavy road-building equipment. From Hamm rollers and pavers to milling machines and compactors — if it builds a road, Rick has sold it.
+          </p>
+          <p class="section-desc">
+            Every highway, every neighborhood street, every smooth stretch of asphalt represents the equipment Rick has put to work. He's not just selling machines — he's building infrastructure that connects communities.
+          </p>
+          <div class="career-highlights stagger">
+            <div class="career-highlight" style="--i:0">
+              <div class="career-highlight-icon">&#128679;</div>
+              <div>
+                <h4>Heavy Equipment Expert</h4>
+                <p>Decades of experience selling the machines that build and pave the roads we all depend on.</p>
+              </div>
+            </div>
+            <div class="career-highlight" style="--i:1">
+              <div class="career-highlight-icon">&#129309;</div>
+              <div>
+                <h4>Trusted Partnerships</h4>
+                <p>Building lasting relationships with contractors, crews, and communities across the region.</p>
+              </div>
+            </div>
+            <div class="career-highlight" style="--i:2">
+              <div class="career-highlight-icon">&#127942;</div>
+              <div>
+                <h4>Industry Leader</h4>
+                <p>From trade shows to job sites — always on the front lines of road-building innovation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="career-photos reveal-right">
+          <img src="photos/Work/IMG_3519.jpeg" alt="Rick with a Hamm roller on a scenic mountain road" loading="lazy">
+          <img src="photos/Work/IMG_2901.jpeg" alt="Rick in hard hat at a road paving job site" loading="lazy">
+          <img src="photos/Work/IMG_8144.jpeg" alt="Rick with colleagues at a heavy equipment trade show" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== FAMILY ===== -->
+  <section class="family-section" id="family">
+    <div class="family-inner">
+      <div class="section-label reveal">What Matters Most</div>
+      <h2 class="section-title reveal">Proud Dad of Three</h2>
+      <p class="section-desc reveal">
+        At the end of the day, nothing beats family. Rick's greatest pride is his three kids — they are the reason behind everything he does, and the best adventure of all.
+      </p>
+      <div class="family-photo-wrapper reveal-scale">
+        <img src="photos/Three_kids/IMG_2779.jpeg" alt="Rick having dinner with one of his kids" loading="lazy">
+      </div>
+      <div class="family-icons reveal">
+        <div class="family-icon">
+          <div class="family-icon-circle">&#11088;</div>
+          <div class="family-icon-label">Kid One</div>
+        </div>
+        <div class="family-icon">
+          <div class="family-icon-circle">&#11088;</div>
+          <div class="family-icon-label">Kid Two</div>
+        </div>
+        <div class="family-icon">
+          <div class="family-icon-circle">&#11088;</div>
+          <div class="family-icon-label">Kid Three</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 <span>Atley Brown</span> &mdash; Honking since day one &#129414;</p>
+    <div class="footer-name">Rick Brown</div>
+    <div class="footer-tagline">Builder &middot; Rider &middot; Competitor &middot; Dad</div>
+    <div class="footer-divider"></div>
+    <div class="footer-copy">&copy; 2026 &mdash; Made with love by his kids</div>
   </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // =============================================
+    // NAVIGATION
+    // =============================================
+    const navbar = document.getElementById('navbar');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        mobileToggle.classList.remove('open');
+      });
+    });
+
+    // =============================================
+    // SCROLL PROGRESS BAR
+    // =============================================
+    const scrollProgress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      scrollProgress.style.width = scrollPercent + '%';
+    });
+
+    // =============================================
+    // HERO PARTICLES
+    // =============================================
+    (function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 25; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (8 + Math.random() * 14) + 's';
+        p.style.animationDelay = Math.random() * 12 + 's';
+        const size = 1.5 + Math.random() * 3;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        const colors = ['rgba(240,165,0,0.6)', 'rgba(45,125,210,0.4)', 'rgba(6,214,160,0.3)'];
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        container.appendChild(p);
+      }
+    })();
+
+    // =============================================
+    // SCROLL REVEAL ANIMATIONS
+    // =============================================
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // =============================================
+    // ANIMATED COUNTERS
+    // =============================================
+    const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+    let statsAnimated = false;
+
+    function animateCounters() {
+      if (statsAnimated) return;
+      statsAnimated = true;
+
+      statNumbers.forEach(el => {
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        const duration = 2000;
+        const start = performance.now();
+
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          el.textContent = Math.round(eased * target).toLocaleString() + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+
+    const statsSection = document.querySelector('.about-stats');
+    if (statsSection) {
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) animateCounters();
+        });
+      }, { threshold: 0.5 });
+      statsObserver.observe(statsSection);
+    }
+
+    // =============================================
+    // CROSS-COUNTRY MAP ANIMATION
+    // =============================================
+    let mapAnimated = false;
+    const routePath = document.getElementById('mapRoute');
+
+    function animateMap() {
+      const route = document.getElementById('mapRoute');
+      const routeGlow = document.getElementById('mapRouteGlow');
+      const cyclist = document.getElementById('mapCyclist');
+
+      const dots = ['dotStart', 'dot1', 'dot2', 'dot3', 'dotEnd'];
+      const rings = ['ringStart', 'ringEnd'];
+      const labels = ['lblStart', 'lbl1', 'lbl2', 'lbl3', 'lblEnd'];
+      const subs = ['subStart', 'sub1', 'sub2', 'sub3', 'subEnd'];
+
+      // Reset everything
+      route.classList.remove('animate');
+      routeGlow.classList.remove('animate');
+      dots.forEach(id => document.getElementById(id).classList.remove('show'));
+      rings.forEach(id => document.getElementById(id).classList.remove('show'));
+      labels.forEach(id => document.getElementById(id).classList.remove('show'));
+      subs.forEach(id => document.getElementById(id).classList.remove('show'));
+      cyclist.classList.remove('show');
+
+      const mileEl = document.getElementById('mileCounter');
+      const dayEl = document.getElementById('dayCounter');
+      const stateEl = document.getElementById('stateCounter');
+      mileEl.textContent = '0';
+      dayEl.textContent = '0';
+      stateEl.textContent = '0';
+
+      void route.offsetWidth; // force reflow
+
+      // Start animation
+      route.classList.add('animate');
+      routeGlow.classList.add('animate');
+      cyclist.classList.add('show');
+
+      // Animate cyclist along the path
+      const pathLength = route.getTotalLength();
+      const animDuration = 5000;
+      const animStart = performance.now();
+
+      function moveCyclist(now) {
+        const elapsed = now - animStart;
+        const progress = Math.min(elapsed / animDuration, 1);
+        const eased = progress < 0.5
+          ? 2 * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+        const point = route.getPointAtLength(eased * pathLength);
+        cyclist.setAttribute('transform', `translate(${point.x}, ${point.y})`);
+
+        // Update counters
+        mileEl.textContent = Math.round(eased * 3000).toLocaleString() + '+';
+        dayEl.textContent = Math.round(eased * 62);
+        stateEl.textContent = Math.round(eased * 12);
+
+        if (progress < 1) requestAnimationFrame(moveCyclist);
+      }
+      requestAnimationFrame(moveCyclist);
+
+      // Show dots and labels progressively
+      const showPoint = (dotId, ringId, lblId, subId, delay) => {
+        setTimeout(() => {
+          document.getElementById(dotId).classList.add('show');
+          if (ringId) document.getElementById(ringId).classList.add('show');
+          document.getElementById(lblId).classList.add('show');
+          document.getElementById(subId).classList.add('show');
+        }, delay);
+      };
+
+      showPoint('dotStart', 'ringStart', 'lblStart', 'subStart', 200);
+      showPoint('dot1', null, 'lbl1', 'sub1', 1500);
+      showPoint('dot2', null, 'lbl2', 'sub2', 2500);
+      showPoint('dot3', null, 'lbl3', 'sub3', 3500);
+      showPoint('dotEnd', 'ringEnd', 'lblEnd', 'subEnd', 4800);
+    }
+
+    const mapContainer = document.querySelector('.map-experience');
+    if (mapContainer) {
+      const mapObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !mapAnimated) {
+            mapAnimated = true;
+            setTimeout(animateMap, 400);
+          }
+        });
+      }, { threshold: 0.25 });
+      mapObserver.observe(mapContainer);
+    }
+
+    document.getElementById('replayBtn').addEventListener('click', () => {
+      mapAnimated = false;
+      animateMap();
+    });
+
+    // =============================================
+    // PICKLEBALL MINI GAME
+    // =============================================
+    (function pickleGame() {
+      const canvas = document.getElementById('pickle-canvas');
+      const ctx = canvas.getContext('2d');
+      const scoreEl = document.getElementById('pickleScore');
+      const cpuScoreEl = document.getElementById('cpuScore');
+      const highScoreEl = document.getElementById('highScore');
+
+      let W, H, dpr;
+
+      function resize() {
+        dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        W = rect.width;
+        H = W * 0.75;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Game state
+      const paddleW = 80, paddleH = 12;
+      let playerX = 0.5;
+      let score = 0, cpuScore = 0, highScore = 0;
+      let ball = { x: 0.5, y: 0.4, vx: 0.004, vy: 0.005, r: 7 };
+      let aiX = 0.5;
+      let particles = [];
+      let gameStarted = false;
+      let rallyCount = 0;
+      let lastHitTime = 0;
+
+      // Court colors
+      const courtGreen = '#1e6b30';
+      const courtBlue = '#1560a0';
+      const lineColor = 'rgba(255,255,255,0.65)';
+
+      function drawCourt() {
+        // Background
+        ctx.fillStyle = courtGreen;
+        ctx.fillRect(0, 0, W, H);
+
+        // Kitchen (non-volley zone)
+        ctx.fillStyle = courtBlue;
+        const kitchenTop = H * 0.35;
+        const kitchenBottom = H * 0.65;
+        ctx.fillRect(0, kitchenTop, W, kitchenBottom - kitchenTop);
+
+        // Lines
+        ctx.strokeStyle = lineColor;
+        ctx.lineWidth = 2;
+
+        // Outer boundary
+        const m = 12;
+        ctx.strokeRect(m, m, W - m * 2, H - m * 2);
+
+        // Net
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+        ctx.lineWidth = 3;
+        ctx.setLineDash([8, 5]);
+        ctx.beginPath();
+        ctx.moveTo(m, H * 0.5);
+        ctx.lineTo(W - m, H * 0.5);
+        ctx.stroke();
+        ctx.restore();
+
+        // Net shadow
+        ctx.fillStyle = 'rgba(0,0,0,0.1)';
+        ctx.fillRect(m, H * 0.5, W - m * 2, 4);
+
+        // Kitchen lines
+        ctx.setLineDash([]);
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(m, kitchenTop);
+        ctx.lineTo(W - m, kitchenTop);
+        ctx.moveTo(m, kitchenBottom);
+        ctx.lineTo(W - m, kitchenBottom);
+        ctx.stroke();
+
+        // Center lines
+        ctx.beginPath();
+        ctx.moveTo(W * 0.5, m);
+        ctx.lineTo(W * 0.5, kitchenTop);
+        ctx.moveTo(W * 0.5, kitchenBottom);
+        ctx.lineTo(W * 0.5, H - m);
+        ctx.stroke();
+
+        // Kitchen label
+        ctx.save();
+        ctx.font = '600 9px Inter, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        ctx.textAlign = 'center';
+        ctx.fillText('KITCHEN', W * 0.5, H * 0.505);
+        ctx.restore();
+      }
+
+      function drawPaddle(x, y, color, highlight) {
+        const pw = paddleW;
+        const ph = paddleH;
+        const px = x * W - pw / 2;
+
+        // Shadow
+        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        ctx.beginPath();
+        ctx.roundRect(px + 3, y + 3, pw, ph, 7);
+        ctx.fill();
+
+        // Paddle body
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.roundRect(px, y, pw, ph, 7);
+        ctx.fill();
+
+        // Highlight
+        ctx.fillStyle = highlight;
+        ctx.beginPath();
+        ctx.roundRect(px + 3, y + 2, pw - 6, ph * 0.35, 3);
+        ctx.fill();
+
+        // Handle nub
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.roundRect(px + pw / 2 - 3, y < H / 2 ? y + ph : y - 6, 6, 6, 2);
+        ctx.fill();
+      }
+
+      function drawBall() {
+        const bx = ball.x * W;
+        const by = ball.y * H;
+
+        // Shadow
+        ctx.beginPath();
+        ctx.arc(bx + 2, by + 3, ball.r + 1, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,0,0,0.2)';
+        ctx.fill();
+
+        // Ball glow when rally is hot
+        if (rallyCount > 5) {
+          ctx.beginPath();
+          ctx.arc(bx, by, ball.r + 4, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(240,165,0,${Math.min(rallyCount * 0.02, 0.3)})`;
+          ctx.fill();
+        }
+
+        // Ball body
+        const grad = ctx.createRadialGradient(bx - 2, by - 2, 0, bx, by, ball.r);
+        grad.addColorStop(0, '#f5f52e');
+        grad.addColorStop(1, '#c8c820');
+        ctx.beginPath();
+        ctx.arc(bx, by, ball.r, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Pickleball holes
+        ctx.fillStyle = 'rgba(0,0,0,0.12)';
+        for (let a = 0; a < 6; a++) {
+          const angle = (a / 6) * Math.PI * 2 + performance.now() * 0.001;
+          ctx.beginPath();
+          ctx.arc(
+            bx + Math.cos(angle) * ball.r * 0.5,
+            by + Math.sin(angle) * ball.r * 0.5,
+            1.5, 0, Math.PI * 2
+          );
+          ctx.fill();
+        }
+
+        // Highlight
+        ctx.beginPath();
+        ctx.arc(bx - 2, by - 2, ball.r * 0.35, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.fill();
+      }
+
+      function spawnHitParticles(x, y, color) {
+        for (let i = 0; i < 8; i++) {
+          particles.push({
+            x: x * W, y: y * H,
+            vx: (Math.random() - 0.5) * 5,
+            vy: (Math.random() - 0.5) * 5,
+            life: 1,
+            r: 2 + Math.random() * 3,
+            color: color || 'rgba(240,165,0,'
+          });
+        }
+      }
+
+      function drawParticles() {
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.life -= 0.035;
+          if (p.life <= 0) { particles.splice(i, 1); continue; }
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + p.life + ')';
+          ctx.fill();
+        }
+      }
+
+      function update() {
+        // AI paddle
+        const aiSpeed = 0.025 + Math.min(rallyCount * 0.003, 0.04);
+        if (ball.vy < 0) {
+          const predictX = ball.x + ball.vx * ((ball.y - 0.08) / Math.abs(ball.vy || 0.01));
+          aiX += (predictX - aiX) * aiSpeed * 2.5;
+          // Add slight imperfection
+          aiX += (Math.random() - 0.5) * 0.003;
+        }
+        aiX = Math.max(0.1, Math.min(0.9, aiX));
+
+        // Ball physics
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+
+        // Wall bounce
+        if (ball.x <= 0.025 || ball.x >= 0.975) {
+          ball.vx *= -1;
+          ball.x = Math.max(0.025, Math.min(0.975, ball.x));
+        }
+
+        // Player paddle hit (bottom)
+        const pHalf = (paddleW / W) / 2 + 0.015;
+        if (ball.vy > 0 && ball.y >= 0.87 && ball.y <= 0.92) {
+          if (Math.abs(ball.x - playerX) < pHalf) {
+            ball.vy = -Math.abs(ball.vy);
+            ball.vx += (ball.x - playerX) * 0.04;
+            const speedMul = 1 + Math.min(rallyCount * 0.005, 0.25);
+            ball.vy *= Math.min(speedMul, 1.015);
+            rallyCount++;
+            score++;
+            if (score > highScore) {
+              highScore = score;
+              highScoreEl.textContent = highScore;
+            }
+            scoreEl.textContent = score;
+            spawnHitParticles(ball.x, ball.y, 'rgba(45,125,210,');
+            lastHitTime = performance.now();
+          }
+        }
+
+        // AI paddle hit (top)
+        if (ball.vy < 0 && ball.y <= 0.12 && ball.y >= 0.07) {
+          if (Math.abs(ball.x - aiX) < pHalf) {
+            ball.vy = Math.abs(ball.vy);
+            ball.vx += (ball.x - aiX) * 0.03;
+            rallyCount++;
+            spawnHitParticles(ball.x, ball.y, 'rgba(239,71,111,');
+          }
+        }
+
+        // Missed - reset
+        if (ball.y > 1.08) {
+          // Player missed
+          cpuScore++;
+          cpuScoreEl.textContent = cpuScore;
+          resetBall();
+        } else if (ball.y < -0.08) {
+          // CPU missed
+          score++;
+          scoreEl.textContent = score;
+          if (score > highScore) {
+            highScore = score;
+            highScoreEl.textContent = highScore;
+          }
+          resetBall();
+        }
+
+        // Speed cap
+        ball.vx = Math.max(-0.014, Math.min(0.014, ball.vx));
+        const maxVy = 0.008 + Math.min(rallyCount * 0.0003, 0.004);
+        if (Math.abs(ball.vy) > maxVy) {
+          ball.vy = Math.sign(ball.vy) * maxVy;
+        }
+      }
+
+      function resetBall() {
+        ball.x = 0.5;
+        ball.y = 0.5;
+        ball.vx = (Math.random() - 0.5) * 0.006;
+        ball.vy = (Math.random() > 0.5 ? 1 : -1) * (0.004 + Math.random() * 0.002);
+        rallyCount = 0;
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        drawCourt();
+
+        // AI paddle (top)
+        drawPaddle(aiX, H * 0.05, '#ef476f', 'rgba(255,255,255,0.25)');
+
+        // Player paddle (bottom)
+        drawPaddle(playerX, H * 0.87, '#2d7dd2', 'rgba(255,255,255,0.3)');
+
+        drawBall();
+        drawParticles();
+
+        // Start prompt overlay
+        if (!gameStarted) {
+          ctx.fillStyle = 'rgba(0,0,0,0.45)';
+          ctx.fillRect(0, 0, W, H);
+
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 18px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('Move your mouse to play!', W / 2, H / 2 - 5);
+
+          ctx.font = '13px Inter, sans-serif';
+          ctx.fillStyle = 'rgba(255,255,255,0.5)';
+          ctx.fillText('Keep the rally going to score points', W / 2, H / 2 + 22);
+        } else {
+          update();
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      // Controls
+      canvas.addEventListener('mousemove', (e) => {
+        gameStarted = true;
+        const rect = canvas.getBoundingClientRect();
+        playerX = (e.clientX - rect.left) / rect.width;
+        playerX = Math.max(0.05, Math.min(0.95, playerX));
+      });
+
+      canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        gameStarted = true;
+        const rect = canvas.getBoundingClientRect();
+        playerX = (e.touches[0].clientX - rect.left) / rect.width;
+        playerX = Math.max(0.05, Math.min(0.95, playerX));
+      }, { passive: false });
+
+      draw();
+    })();
+
+    // =============================================
+    // SMOOTH SCROLL FOR NAV LINKS
+    // =============================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
