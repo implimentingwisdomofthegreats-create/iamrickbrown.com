@@ -1,1 +1,293 @@
-<h1>Hello from iamrickbrown.com</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rick Brown | Pickleball & Cycling</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green: #2d6a4f;
+      --green-light: #40916c;
+      --green-pale: #b7e4c7;
+      --yellow: #f4c430;
+      --yellow-light: #fce588;
+      --dark: #1b1b1b;
+      --white: #fefefe;
+      --gray: #555;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(244,196,48,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hero-icons {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .tagline {
+      font-size: 1.25rem;
+      font-weight: 300;
+      opacity: 0.9;
+    }
+
+    /* ---- NAV PILLS ---- */
+    .nav-pills {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-pills a {
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .nav-pills a:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* ---- SECTIONS ---- */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    section p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 680px;
+    }
+
+    .divider {
+      border: none;
+      height: 3px;
+      background: linear-gradient(to right, var(--green-pale), var(--yellow-light), var(--green-pale));
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ---- CARDS ---- */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: #f8faf8;
+      border: 1px solid #e0e8e0;
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(45,106,79,0.1);
+    }
+
+    .card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+
+    /* ---- QUOTE ---- */
+    .quote-block {
+      background: linear-gradient(135deg, #f0f7f0, #fdf8e8);
+      border-left: 4px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      padding: 2rem;
+      margin-top: 1.5rem;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--green);
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    footer span {
+      color: var(--yellow);
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-icons {
+        font-size: 2.5rem;
+      }
+
+      section {
+        padding: 3rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-icons">
+        <span>&#127955;</span>
+        <span>&#128690;</span>
+      </div>
+      <h1>Rick Brown</h1>
+      <p class="tagline">Life on two wheels &amp; two paddles</p>
+      <nav class="nav-pills">
+        <a href="#pickleball">Pickleball</a>
+        <a href="#cycling">Cycling</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Pickleball -->
+  <section id="pickleball">
+    <h2>&#127955; Pickleball</h2>
+    <p>Whether it's a friendly rally or a competitive match, there's nothing quite like the crack of a paddle on the court. Pickleball keeps the competitive fire burning and the good times rolling.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="icon">&#127941;</div>
+        <h3>Love the Game</h3>
+        <p>From dinks to drives, every point is a chance to have fun and stay sharp.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#129309;</div>
+        <h3>Community</h3>
+        <p>The best part of pickleball is the people you meet on and off the court.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128170;</div>
+        <h3>Stay Active</h3>
+        <p>A great workout disguised as a great time. Cardio, agility, and laughs included.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Cycling -->
+  <section id="cycling">
+    <h2>&#128690; Cycling</h2>
+    <p>Two wheels, open roads, and fresh air. Cycling is freedom, fitness, and adventure all rolled into one. Nothing clears the mind like a long ride.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="icon">&#127956;</div>
+        <h3>Explore</h3>
+        <p>Every ride is a chance to discover new roads, trails, and scenery.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#9889;</div>
+        <h3>Push the Limits</h3>
+        <p>Hill climbs, long hauls, and personal bests keep the challenge alive.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#9752;</div>
+        <h3>Fresh Air</h3>
+        <p>Nothing beats the feeling of wind in your face on a beautiful day.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- About -->
+  <section id="about">
+    <h2>&#128075; About Rick</h2>
+    <p>Rick Brown is a pickleball enthusiast and avid cyclist who believes the best days are spent either on the court or on the road. When he's not chasing down a perfectly placed dink or grinding up a hill, you can find him enjoying time with family and friends.</p>
+    <div class="quote-block">
+      "Life's too short for bad paddles and flat tires."
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 <span>Rick Brown</span> &mdash; Paddles &amp; Pedals</p>
+  </footer>
+
+</body>
+</html>
