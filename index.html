@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rick Brown | Pickleball & Cycling</title>
+  <title>Atley Brown | Silly Goose</title>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -12,14 +12,16 @@
     }
 
     :root {
-      --green: #2d6a4f;
-      --green-light: #40916c;
-      --green-pale: #b7e4c7;
-      --yellow: #f4c430;
-      --yellow-light: #fce588;
-      --dark: #1b1b1b;
-      --white: #fefefe;
-      --gray: #555;
+      --orange: #ff8c42;
+      --orange-light: #ffb347;
+      --yellow: #ffe066;
+      --yellow-light: #fff3b0;
+      --sky: #87ceeb;
+      --sky-light: #d6f0ff;
+      --pink: #ff6b9d;
+      --dark: #2b2b2b;
+      --white: #fffef8;
+      --gray: #666;
     }
 
     body {
@@ -27,12 +29,13 @@
       color: var(--dark);
       background: var(--white);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     /* ---- HERO ---- */
     .hero {
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
-      color: var(--white);
+      background: linear-gradient(135deg, var(--orange) 0%, var(--yellow) 50%, var(--sky) 100%);
+      color: var(--dark);
       text-align: center;
       padding: 5rem 1.5rem 4rem;
       position: relative;
@@ -44,8 +47,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 80%, rgba(244,196,48,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%);
+        radial-gradient(circle at 15% 85%, rgba(255,107,157,0.2) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(255,255,255,0.3) 0%, transparent 40%);
     }
 
     .hero-content {
@@ -54,25 +57,36 @@
       margin: 0 auto;
     }
 
-    .hero-icons {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
+    .hero-goose {
+      font-size: 6rem;
+      margin-bottom: 0.5rem;
+      animation: wobble 2s ease-in-out infinite;
+    }
+
+    @keyframes wobble {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: 3.2rem;
       font-weight: 800;
       letter-spacing: -1px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
     .hero .tagline {
-      font-size: 1.25rem;
-      font-weight: 300;
-      opacity: 0.9;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--dark);
+      opacity: 0.85;
+    }
+
+    .hero .subtitle {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+      font-style: italic;
     }
 
     /* ---- NAV PILLS ---- */
@@ -85,18 +99,19 @@
     }
 
     .nav-pills a {
-      background: rgba(255,255,255,0.15);
-      color: var(--white);
+      background: rgba(255,255,255,0.4);
+      color: var(--dark);
       padding: 0.5rem 1.25rem;
       border-radius: 50px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.95rem;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.2s;
     }
 
     .nav-pills a:hover {
-      background: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.7);
+      transform: scale(1.05);
     }
 
     /* ---- SECTIONS ---- */
@@ -124,9 +139,9 @@
     .divider {
       border: none;
       height: 3px;
-      background: linear-gradient(to right, var(--green-pale), var(--yellow-light), var(--green-pale));
       max-width: 900px;
       margin: 0 auto;
+      background: linear-gradient(to right, var(--yellow-light), var(--orange-light), var(--pink), var(--sky), var(--yellow-light));
     }
 
     /* ---- CARDS ---- */
@@ -138,20 +153,20 @@
     }
 
     .card {
-      background: #f8faf8;
-      border: 1px solid #e0e8e0;
-      border-radius: 12px;
+      background: #fffdf5;
+      border: 2px solid #ffe8c8;
+      border-radius: 16px;
       padding: 1.75rem;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(45,106,79,0.1);
+      transform: translateY(-4px) rotate(1deg);
+      box-shadow: 0 8px 24px rgba(255,140,66,0.15);
     }
 
     .card .icon {
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin-bottom: 0.75rem;
     }
 
@@ -165,16 +180,95 @@
       color: var(--gray);
     }
 
+    /* ---- HONK BANNER ---- */
+    .honk-banner {
+      background: linear-gradient(135deg, var(--yellow), var(--orange-light));
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--dark);
+    }
+
+    .honk-banner span {
+      display: inline-block;
+      animation: honkBounce 0.6s ease-in-out infinite alternate;
+    }
+
+    .honk-banner span:nth-child(2) { animation-delay: 0.1s; }
+    .honk-banner span:nth-child(3) { animation-delay: 0.2s; }
+    .honk-banner span:nth-child(4) { animation-delay: 0.3s; }
+    .honk-banner span:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes honkBounce {
+      to { transform: translateY(-6px); }
+    }
+
     /* ---- QUOTE ---- */
     .quote-block {
-      background: linear-gradient(135deg, #f0f7f0, #fdf8e8);
-      border-left: 4px solid var(--green);
-      border-radius: 0 12px 12px 0;
+      background: linear-gradient(135deg, var(--sky-light), var(--yellow-light));
+      border-left: 4px solid var(--orange);
+      border-radius: 0 16px 16px 0;
       padding: 2rem;
       margin-top: 1.5rem;
       font-style: italic;
-      font-size: 1.1rem;
-      color: var(--green);
+      font-size: 1.15rem;
+      color: var(--dark);
+    }
+
+    /* ---- GOOSE FACTS ---- */
+    .fact-list {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+
+    .fact-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px dashed #ffe0b2;
+      font-size: 1.05rem;
+      color: var(--gray);
+    }
+
+    .fact-list li::before {
+      content: '\1F4A5 ';
+    }
+
+    /* ---- GOOSE METER ---- */
+    .meter-section {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .meter-bar {
+      background: #f0f0f0;
+      border-radius: 50px;
+      height: 2rem;
+      max-width: 500px;
+      margin: 1rem auto;
+      overflow: hidden;
+      border: 2px solid #ffe0b2;
+    }
+
+    .meter-fill {
+      background: linear-gradient(to right, var(--yellow), var(--orange), var(--pink));
+      height: 100%;
+      width: 100%;
+      border-radius: 50px;
+      animation: fillUp 2s ease-out;
+    }
+
+    @keyframes fillUp {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+
+    .meter-label {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--orange);
+      margin-top: 0.5rem;
     }
 
     /* ---- FOOTER ---- */
@@ -187,21 +281,26 @@
     }
 
     footer span {
-      color: var(--yellow);
+      color: var(--orange-light);
     }
 
     /* ---- RESPONSIVE ---- */
     @media (max-width: 600px) {
       .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.4rem;
       }
 
-      .hero-icons {
-        font-size: 2.5rem;
+      .hero-goose {
+        font-size: 4rem;
       }
 
       section {
         padding: 3rem 1.25rem;
+      }
+
+      .honk-banner {
+        font-size: 1.2rem;
+        letter-spacing: 4px;
       }
     }
   </style>
@@ -211,82 +310,115 @@
   <!-- Hero -->
   <header class="hero">
     <div class="hero-content">
-      <div class="hero-icons">
-        <span>&#127955;</span>
-        <span>&#128690;</span>
-      </div>
-      <h1>Rick Brown</h1>
-      <p class="tagline">Life on two wheels &amp; two paddles</p>
+      <div class="hero-goose">&#129414;</div>
+      <h1>Atley Brown</h1>
+      <p class="tagline">Certified Silly Goose</p>
+      <p class="subtitle">Professional honker. Full-time goofball. Zero regrets.</p>
       <nav class="nav-pills">
-        <a href="#pickleball">Pickleball</a>
-        <a href="#cycling">Cycling</a>
+        <a href="#silly">Silly Credentials</a>
+        <a href="#goose">Goose Mode</a>
+        <a href="#facts">Fun Facts</a>
         <a href="#about">About</a>
       </nav>
     </div>
   </header>
 
-  <!-- Pickleball -->
-  <section id="pickleball">
-    <h2>&#127955; Pickleball</h2>
-    <p>Whether it's a friendly rally or a competitive match, there's nothing quite like the crack of a paddle on the court. Pickleball keeps the competitive fire burning and the good times rolling.</p>
+  <!-- Honk Banner -->
+  <div class="honk-banner">
+    <span>H</span><span>O</span><span>N</span><span>K</span><span>!</span>
+  </div>
+
+  <!-- Silly Credentials -->
+  <section id="silly">
+    <h2>&#129315; Silly Credentials</h2>
+    <p>Atley didn't just wake up one day as a silly goose. It took years of dedicated goofiness, world-class shenanigans, and an unwavering commitment to being absolutely ridiculous.</p>
     <div class="card-grid">
       <div class="card">
-        <div class="icon">&#127941;</div>
-        <h3>Love the Game</h3>
-        <p>From dinks to drives, every point is a chance to have fun and stay sharp.</p>
+        <div class="icon">&#129322;</div>
+        <h3>Class Clown Energy</h3>
+        <p>Can make anyone laugh at any time. It's basically a superpower at this point.</p>
       </div>
       <div class="card">
-        <div class="icon">&#129309;</div>
-        <h3>Community</h3>
-        <p>The best part of pickleball is the people you meet on and off the court.</p>
+        <div class="icon">&#128566;</div>
+        <h3>Master of Funny Faces</h3>
+        <p>Has an unlimited supply of ridiculous expressions ready to deploy at a moment's notice.</p>
       </div>
       <div class="card">
-        <div class="icon">&#128170;</div>
-        <h3>Stay Active</h3>
-        <p>A great workout disguised as a great time. Cardio, agility, and laughs included.</p>
+        <div class="icon">&#127912;</div>
+        <h3>Party Starter</h3>
+        <p>If there's fun to be had, Atley is already there causing a scene (the good kind).</p>
       </div>
     </div>
   </section>
 
   <hr class="divider">
 
-  <!-- Cycling -->
-  <section id="cycling">
-    <h2>&#128690; Cycling</h2>
-    <p>Two wheels, open roads, and fresh air. Cycling is freedom, fitness, and adventure all rolled into one. Nothing clears the mind like a long ride.</p>
+  <!-- Goose Mode -->
+  <section id="goose">
+    <h2>&#129414; Goose Mode</h2>
+    <p>When goose mode is activated, there's no stopping the silliness. Chaos (the fun kind) is guaranteed. Proceed with caution and snacks.</p>
     <div class="card-grid">
       <div class="card">
-        <div class="icon">&#127956;</div>
-        <h3>Explore</h3>
-        <p>Every ride is a chance to discover new roads, trails, and scenery.</p>
+        <div class="icon">&#128168;</div>
+        <h3>Chaotic Good</h3>
+        <p>Will absolutely steal your sandwich but somehow make you laugh about it.</p>
       </div>
       <div class="card">
-        <div class="icon">&#9889;</div>
-        <h3>Push the Limits</h3>
-        <p>Hill climbs, long hauls, and personal bests keep the challenge alive.</p>
+        <div class="icon">&#129438;</div>
+        <h3>Waddle Game: Strong</h3>
+        <p>Struts around with the confidence of a goose who owns the entire pond.</p>
       </div>
       <div class="card">
-        <div class="icon">&#9752;</div>
-        <h3>Fresh Air</h3>
-        <p>Nothing beats the feeling of wind in your face on a beautiful day.</p>
+        <div class="icon">&#128227;</div>
+        <h3>Volume: Maximum</h3>
+        <p>Indoor voice? Never heard of it. Every room is an outdoor room if you're loud enough.</p>
       </div>
     </div>
+
+    <div class="meter-section">
+      <p><strong>Current Silly Goose Level:</strong></p>
+      <div class="meter-bar">
+        <div class="meter-fill"></div>
+      </div>
+      <div class="meter-label">100% MAXIMUM SILLY</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Fun Facts -->
+  <section id="facts">
+    <h2>&#128173; Fun Facts About Atley</h2>
+    <p>Important things the world needs to know:</p>
+    <ul class="fact-list">
+      <li>Has never once been serious for more than 30 seconds</li>
+      <li>Considered a national treasure by at least one household</li>
+      <li>Can turn any situation into a comedy show</li>
+      <li>Runs on snacks, giggles, and pure unfiltered chaos</li>
+      <li>Once made a grown adult laugh so hard they cried</li>
+      <li>Official goose-to-human silliness ratio: off the charts</li>
+    </ul>
   </section>
 
   <hr class="divider">
 
   <!-- About -->
   <section id="about">
-    <h2>&#128075; About Rick</h2>
-    <p>Rick Brown is a pickleball enthusiast and avid cyclist who believes the best days are spent either on the court or on the road. When he's not chasing down a perfectly placed dink or grinding up a hill, you can find him enjoying time with family and friends.</p>
+    <h2>&#128038; About Atley</h2>
+    <p>Atley Brown is the silliest goose you'll ever meet. Armed with an infectious laugh, an unstoppable sense of humor, and absolutely zero chill, Atley brings joy and chaos wherever they go. The world is a better (and funnier) place with this goose in it.</p>
     <div class="quote-block">
-      "Life's too short for bad paddles and flat tires."
+      "Be the silly goose you wish to see in the world." &mdash; Atley, probably
     </div>
   </section>
 
+  <!-- Honk Banner -->
+  <div class="honk-banner">
+    <span>H</span><span>O</span><span>N</span><span>K</span><span>!</span>
+  </div>
+
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 <span>Rick Brown</span> &mdash; Paddles &amp; Pedals</p>
+    <p>&copy; 2026 <span>Atley Brown</span> &mdash; Honking since day one &#129414;</p>
   </footer>
 
 </body>
